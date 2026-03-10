@@ -1,0 +1,18 @@
+.app-continer{
+    margin: auto auto;
+    font-size: max(3vw,20px);    
+}
+.img-div{
+    gap: (2vw,10px) !important;
+}
+.images{
+    width: max(30vw,120px);
+    max-width: 180px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.images:hover{
+    transform: scale(1.05);
+}
+
+

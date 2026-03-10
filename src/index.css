@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: outfit;
+}
+body{
+  min-height: 100%;
+  /* overflow-x: hidden; */
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+.app{
+  margin: auto;
+  
+}
+@keyframes fadeIn{
+  0%{
+     opacity: 0;
+  }100%{
+    opacity: 1;
+  }
+}
+.menu-container{
+  max-width: 95vw;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+
+}
