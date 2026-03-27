@@ -1,130 +1,91 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
+import "./Cart.css";
 
 const Cart = () => {
 
-const { cartItems, food_list, addToCart, removeFromCart } =
-useContext(StoreContext);
+  const { cartItems, food_list, addToCart, removeFromCart } =
+    useContext(StoreContext);
 
+  let totalAmount = 0;
 
-// Total price calculation
-let totalAmount = 0;
+  food_list.forEach((item) => {
+    if (cartItems[item._id]) {
+      totalAmount += item.price * cartItems[item._id];
+    }
+  });
 
-food_list.forEach((item)=>{
+  return (
+    <div className="cart">
 
-if(cartItems[item._id]){
+      <h2 className="cart-title">Your Cart 🛒</h2>
 
-totalAmount +=
-item.price * cartItems[item._id];
+      <div className="cart-container">
 
-}
+        {/* Cart Items */}
+        <div className="cart-items">
+          {food_list.map((item) => {
+            if (cartItems[item._id]) {
+              return (
+                <div key={item._id} className="cart-item">
 
-})
+                  {/* Image */}
+                  <img src={item.image} alt={item.name} />
 
+                  {/* Details */}
+                  <div className="cart-details">
+                    <h3>{item.name}</h3>
+                    <p>₹ {item.price}</p>
 
-return (
+                    {/* Quantity */}
+                    <div className="cart-quantity">
+                      <button onClick={() => removeFromCart(item._id)}>-</button>
+                      <span>{cartItems[item._id]}</span>
+                      <button onClick={() => addToCart(item._id)}>+</button>
+                    </div>
+                  </div>
 
-<div className="cart">
+                  {/* Subtotal */}
+                  <div className="cart-subtotal">
+                    ₹ {item.price * cartItems[item._id]}
+                  </div>
 
-<h2>Your Cart</h2>
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
 
-<hr/>
+        {/* Cart Summary */}
+        <div className="cart-summary">
+          <h3>Bill Details</h3>
 
-{/* Cart Items */}
+          <div className="summary-row">
+            <span>Item Total</span>
+            <span>₹ {totalAmount}</span>
+          </div>
 
-{
-food_list.map((item)=>{
+          <div className="summary-row">
+            <span>Delivery Fee</span>
+            <span>₹ 40</span>
+          </div>
 
-if(cartItems[item._id]){
+          <hr />
 
-return(
+          <div className="summary-total">
+            <span>Total</span>
+            <span>₹ {totalAmount + 40}</span>
+          </div>
 
-<div
-key={item._id}
-style={{
-display:"flex",
-alignItems:"center",
-gap:"20px",
-marginBottom:"15px"
-}}
+          <button className="checkout-btn">
+            Proceed to Checkout
+          </button>
+        </div>
 
->
-
-{/* Image */}
-
-<img
-src={item.image}
-alt={item.name}
-width="80"
-/>
-
-{/* Name */}
-
-<h3>{item.name}</h3>
-
-{/* Price */}
-
-<p>₹ {item.price}</p>
-
-{/* Quantity */}
-
-<div>
-
-<button
-onClick={()=>removeFromCart(item._id)}
->
--
-</button>
-
-<span style={{margin:"10px"}}>
-{cartItems[item._id]}
-</span>
-
-<button
-onClick={()=>addToCart(item._id)}
->
-+
-</button>
-
-</div>
-
-{/* Subtotal */}
-
-<p>
-
-₹ {
-item.price *
-cartItems[item._id]
-}
-
-</p>
-
-</div>
-
-)
-
-}
-
-return null;
-
-})
-
-}
-
-<hr/>
-
-{/* Total */}
-
-<h2>
-
-Total Amount : ₹ {totalAmount}
-
-</h2>
-
-</div>
-
-)
-
-}
+      </div>
+    </div>
+  );
+};
 
 export default Cart;
